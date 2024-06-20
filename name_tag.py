@@ -1,9 +1,11 @@
+#packages– Some need pip install
 import pandas as pd
 from docx import Document
 from docx.shared import Inches
 
 # Load the spreadsheet
-file_path = '/Users/yugoiwamoto/Desktop/IGM_project/IGM_incoming_list.xlsx'
+#Change the mapping to the spreadsheet 
+file_path = '/Users/incoming_list.xlsx'
 try:
     data = pd.read_excel(file_path)
     print("Columns in the DataFrame:", data.columns)
@@ -26,7 +28,7 @@ doc = Document()
 num_columns = 3
 num_rows = 10
 
-# Dimensions for Avery 5160 labels
+# Dimensions for Avery 5160 labels and you may change the  label type 
 label_width = 2.625  # in inches
 label_height = 1.0   # in inches
 
@@ -70,7 +72,8 @@ for index, row in data.iterrows():
             row_idx = 0
 
 # Save the document
-output_path = '/Users/yugoiwamoto/Desktop/IGM_project/IGM_incoming_name_tags.docx'
+#change the mapping of the output label templatre
+output_path = '/Users/incoming_name_tags.docx'
 try:
     doc.save(output_path)
     print(f"Document has been created successfully at {output_path}.")
