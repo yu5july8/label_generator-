@@ -45,6 +45,7 @@ for col in table.columns:
 row_idx = 0
 col_idx = 0
 
+#adjust here based on the columns
 for index, row in data.iterrows():
     first_name = row.get('First Name', 'N/A')
     last_name = row.get('Last Name', 'N/A')
