@@ -1,11 +1,9 @@
-#packages– Some need pip install
 import pandas as pd
 from docx import Document
 from docx.shared import Inches
 
-# Load the spreadsheet
-#Change the mapping to the spreadsheet 
-file_path = '/Users/incoming_list.xlsx'
+# Load the spreadsheet-change it as it is
+file_path = '/Users/yugoiwamoto/Desktop/IGM_project/IGM_incoming_list.xlsx'
 try:
     data = pd.read_excel(file_path)
     print("Columns in the DataFrame:", data.columns)
@@ -28,7 +26,7 @@ doc = Document()
 num_columns = 3
 num_rows = 10
 
-# Dimensions for Avery 5160 labels and you may change the  label type 
+# Dimensions for Avery 5160 labels
 label_width = 2.625  # in inches
 label_height = 1.0   # in inches
 
@@ -41,22 +39,23 @@ for col in table.columns:
     for cell in col.cells:
         cell.width = Inches(label_width)
 
-# Populate the table with names and UID numbers
+# Populate the table with names and placeholder for program
 row_idx = 0
 col_idx = 0
 
-#adjust here based on the columns
 for index, row in data.iterrows():
     first_name = row.get('First Name', 'N/A')
     last_name = row.get('Last Name', 'N/A')
-    preferred_name = row.get('Preferred Name', 'N/A')
-    uid = row.get('UID', 'N/A')
+    program = 'Placeholder for Program'  # Placeholder text for program
 
-    # Combine the names
-    name_text = f"{first_name} {last_name}\n(Preferred: {preferred_name})"
+    # Combine the names and program
+    name_text = f"{first_name} {last_name}\nProgram: {program}"
     
     cell = table.cell(row_idx, col_idx)
-    cell.text = f"{name_text}\n{uid}"
+    cell.text = f"{name_text}"
+    
+    # Add a new paragraph to adjust alignment
+    cell.add_paragraph("\n")
 
     col_idx += 1
     if col_idx >= num_columns:
@@ -73,8 +72,7 @@ for index, row in data.iterrows():
             row_idx = 0
 
 # Save the document
-#change the mapping of the output label templatre
-output_path = '/Users/incoming_name_tags.docx'
+output_path = '/Users/yugoiwamoto/Desktop/IGM_project/IGM_incoming_name_tags.docx'
 try:
     doc.save(output_path)
     print(f"Document has been created successfully at {output_path}.")
